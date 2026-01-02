@@ -27,6 +27,11 @@ export default class Worker extends Model {
           allowNull: false,
           unique: true,
         },
+        idnumber: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          unique: true,
+        },
         role: {
           type: DataTypes.STRING,
           allowNull: false,

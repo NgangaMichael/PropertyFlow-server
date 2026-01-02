@@ -3,7 +3,7 @@ import User from './usersmodel/user.js';
 import Expense from './expensesmodel/expense.js';
 import Landlord from './landlordsmodel/landlord.js';
 import Payment from './paymentsmodel/payment.js';
-import Property from './propertiesmodel/property.js';
+import Property from './propertiesmodel/propertie.js';
 import Tenant from './tenantsmodel/tenant.js';
 import Worker from './workersmodel/worker.js';
 
