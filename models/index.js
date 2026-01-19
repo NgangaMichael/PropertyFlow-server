@@ -7,8 +7,14 @@ import Property from './propertiesmodel/propertie.js';
 import Tenant from './tenantsmodel/tenant.js';
 import Worker from './workersmodel/worker.js';
 
-// Initialize models first
+// 🔥 INITIALIZE ALL MODELS
 User.initModel(sequelize);
+Expense.initModel(sequelize);
+Landlord.initModel(sequelize);
+Payment.initModel(sequelize);
+Property.initModel(sequelize);
+Tenant.initModel(sequelize);
+Worker.initModel(sequelize);
 
 const db = {
   sequelize,

@@ -9,6 +9,10 @@ export default class Propertie extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
+        landlordid: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
         propertyname: {
           type: DataTypes.STRING,
           allowNull: false,

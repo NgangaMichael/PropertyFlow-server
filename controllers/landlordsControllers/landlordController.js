@@ -6,7 +6,7 @@ export const getAllLandlords = async (req, res) => {
 };
 
 export const createLandlord = async (req, res) => {
-  const { firstname, lastname, email, phone, idunmber, address, bankname, bankaccountnumber, status } = req.body;
+  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status } = req.body;
 
   try {
     const landlord = await landlordService.createLandlordService({
@@ -14,7 +14,7 @@ export const createLandlord = async (req, res) => {
       lastname, 
       email, 
       phone, 
-      idunmber, 
+      idnumber, 
       address, 
       bankname, 
       bankaccountnumber, 
@@ -29,7 +29,7 @@ export const createLandlord = async (req, res) => {
 
 export const updateLandlord = async (req, res) => {
   const { id } = req.params;
-  const { firstname, lastname, email, phone, idunmber, address, bankname, bankaccountnumber, status } = req.body;
+  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status } = req.body;
 
   try {
     const updatedLandlord = await landlordService.updateLandlordService(id, {
@@ -37,7 +37,7 @@ export const updateLandlord = async (req, res) => {
       lastname, 
       email, 
       phone, 
-      idunmber, 
+      idnumber, 
       address, 
       bankname, 
       bankaccountnumber, 
@@ -53,7 +53,7 @@ export const updateLandlord = async (req, res) => {
 export const deleteLandlord = async (req, res) => {
   const { id } = req.params;
   try {
-    await landlordService.deleteUserService(id);
+    await landlordService.deleteLandlordService(id);
     res.json({ message: 'Landlord deleted successfully' });
   } catch (error) {
     res.status(400).json({ error: error.message });

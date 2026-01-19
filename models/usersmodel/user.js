@@ -23,7 +23,7 @@ export default class User extends Model {
           unique: true,
         },
         phone: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
           allowNull: false,
           unique: true,
         },

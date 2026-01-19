@@ -6,10 +6,10 @@ export const getAllLandlordsService = async () => {
   });
 };
 
-export const createLandlordService = async ({ firstname, lastname, email, phone, idunmber, address, bankname, bankaccountnumber, status }) => {
+export const createLandlordService = async ({ firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status }) => {
   const existing = await db.Landlord.findOne({
     where: {
-      idunmber,
+      idnumber,
       email,
     },
   });
@@ -18,7 +18,7 @@ export const createLandlordService = async ({ firstname, lastname, email, phone,
     throw new Error('Landlord already exists');
   }
 
-  return await db.Landlord.create({ firstname, lastname, email, phone, idunmber, address, bankname, bankaccountnumber, status });
+  return await db.Landlord.create({ firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status });
 };
 
 export const updateLandlordService = async (id, data) => {

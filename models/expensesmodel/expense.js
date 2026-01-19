@@ -32,11 +32,7 @@ export default class Expense extends Model {
         paymentmethod: {
           type: DataTypes.STRING,
           allowNull: false,
-        },
-        reference: {
-          type: DataTypes.STRING,
-          allowNull: false,
-        },
+        }
       },
       {
         sequelize,

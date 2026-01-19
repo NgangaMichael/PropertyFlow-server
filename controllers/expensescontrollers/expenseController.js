@@ -9,10 +9,10 @@ export const createExpense = async (req, res) => {
   const { propertyid, expensetype, amount, description, paidto, paymentmethod, refrence } = req.body;
 
   try {
-    const expense = await expenseService.createUserService({
+    const expense = await expenseService.createExpenseService({
       propertyid, 
       expensetype, 
-      amount, 
+      amount,
       description, 
       paidto, 
       paymentmethod, 

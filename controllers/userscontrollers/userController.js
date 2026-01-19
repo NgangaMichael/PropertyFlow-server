@@ -8,6 +8,7 @@ export const getAllUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { username, email, designation, phone, password } = req.body;
+  console.log(req.body);
 
   try {
     const saltRounds = 10;

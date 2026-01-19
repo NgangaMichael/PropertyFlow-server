@@ -7,7 +7,7 @@ export const getAllProperties = async (req, res) => {
 
 export const createProperty = async (req, res) => {
   const { propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, location, description, status } = req.body;
-
+console.log(req.body);
   try {
     const property = await propertyService.createPropertyService({
       propertyname, 
