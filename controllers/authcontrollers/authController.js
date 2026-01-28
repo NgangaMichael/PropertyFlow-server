@@ -5,6 +5,7 @@ import User from '../../models/usersmodel/user.js';
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
+  console.log("Login attempt for user:", req.body);
 
   try {
     const user = await User.findOne({ where: { username } });

@@ -30,16 +30,23 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { username, email, designation, phone } = req.body;
+  const { username, email, designation, phone, password } = req.body;
 
   try {
-    const updatedUser = await userService.updateUserService(id, {
+    const updateData = {
       username,
       email,
       designation,
       phone,
-    });
+    };
 
+    // Only update password if provided
+    if (password && password.trim() !== '') {
+      const saltRounds = 10;
+      updateData.password = await bcrypt.hash(password, saltRounds);
+    }
+
+    const updatedUser = await userService.updateUserService(id, updateData);
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ error: error.message });

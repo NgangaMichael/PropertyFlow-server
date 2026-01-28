@@ -7,6 +7,7 @@ export const getAllWorkers = async (req, res) => {
 
 export const createWorker = async (req, res) => {
   const { firstname, lastname, email, phone, idnumber, role, salary, paymentfrequecy, status } = req.body;
+  console.group(req.body);
 
   try { 
     const worker = await workerService.createWorkerService({
@@ -30,6 +31,7 @@ export const createWorker = async (req, res) => {
 export const updateWorker = async (req, res) => {
   const { id } = req.params;
   const { firstname, lastname, email, phone, idnumber, role, salary, paymentfrequecy, status } = req.body;
+  console.group(req.body);
 
   try {
     const updateWorker = await workerService.updateWorkerService(id, {
