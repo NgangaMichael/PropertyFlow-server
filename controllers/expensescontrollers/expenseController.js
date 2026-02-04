@@ -6,17 +6,15 @@ export const getAllExpenses = async (req, res) => {
 };
 
 export const createExpense = async (req, res) => {
-  const { propertyid, expensetype, amount, description, paidto, paymentmethod, refrence } = req.body;
+  const { expensetype, amount, description, paidto, paymentmethod } = req.body;
 
   try {
     const expense = await expenseService.createExpenseService({
-      propertyid, 
       expensetype, 
       amount,
       description, 
       paidto, 
-      paymentmethod, 
-      refrence
+      paymentmethod
     });
 
     res.status(201).json(expense);
@@ -27,17 +25,15 @@ export const createExpense = async (req, res) => {
 
 export const updateExpense = async (req, res) => {
   const { id } = req.params;
-  const { propertyid, expensetype, amount, description, paidto, paymentmethod, refrence } = req.body;
+  const { expensetype, amount, description, paidto, paymentmethod } = req.body;
 
   try {
     const updatedExpense = await expenseService.updateExpenseService(id, {
-      propertyid, 
       expensetype, 
       amount, 
       description, 
       paidto, 
-      paymentmethod, 
-      refrence
+      paymentmethod
     });
 
     res.json(updatedExpense);

@@ -6,8 +6,8 @@ export const getAllExpensesService = async () => {
   });
 };
 
-export const createExpenseService = async ({ propertyid, expensetype, amount, description, paidto, paymentmethod, refrence }) => {
-  return await db.Expense.create({ propertyid, expensetype, amount, description, paidto, paymentmethod, refrence });
+export const createExpenseService = async ({ expensetype, amount, description, paidto, paymentmethod }) => {
+  return await db.Expense.create({ expensetype, amount, description, paidto, paymentmethod });
 };
 
 export const updateExpenseService = async (id, data) => {

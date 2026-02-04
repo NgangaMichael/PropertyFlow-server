@@ -6,25 +6,32 @@ export const getAllLandlordsService = async () => {
   });
 };
 
-export const createLandlordService = async ({ firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status }) => {
-  const existing = await db.Landlord.findOne({
-    where: {
-      idnumber,
-      email,
-    },
-  });
-
-  if (existing) {
-    throw new Error('Landlord already exists');
+export const createLandlordService = async (data) => {
+  try {
+    return await db.Landlord.create(data);
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      // Extract the field name that caused the conflict
+      const field = error.errors[0].path;
+      throw new Error(`A landlord with this ${field} already exists.`);
+    }
+    throw error;
   }
-
-  return await db.Landlord.create({ firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status });
 };
 
 export const updateLandlordService = async (id, data) => {
-  const landlord = await db.Landlord.findByPk(id);
-  await landlord.update(data);
-  return landlord;
+  try {
+    const landlord = await db.Landlord.findByPk(id);
+    if (!landlord) throw new Error('Landlord not found');
+    await landlord.update(data);
+    return landlord;
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      const field = error.errors[0].path;
+      throw new Error(`The ${field} entered is already taken by another landlord.`);
+    }
+    throw error;
+  }
 };
 
 export const deleteLandlordService = async (id) => {

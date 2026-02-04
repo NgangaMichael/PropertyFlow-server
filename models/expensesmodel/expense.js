@@ -9,10 +9,6 @@ export default class Expense extends Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        propertyid: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-        },
         expensetype: {
           type: DataTypes.STRING,
           allowNull: false,

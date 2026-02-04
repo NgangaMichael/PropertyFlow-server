@@ -28,4 +28,14 @@ const db = {
   Worker,
 };
 
+db.Property.hasMany(db.Tenant, { foreignKey: 'propertyid' });
+db.Tenant.belongsTo(db.Property, { foreignKey: 'propertyid', as: 'property' });
+
+// 🔥 ADD THESE NEW ONES:
+db.Payment.belongsTo(db.Tenant, { foreignKey: 'tenantid', as: 'tenant' });
+db.Payment.belongsTo(db.Property, { foreignKey: 'propertyid', as: 'property' });
+
+// If you want to see payments from the Tenant side later:
+db.Tenant.hasMany(db.Payment, { foreignKey: 'tenantid' });
+
 export default db;

@@ -1,8 +1,22 @@
+// services/paymentService.js
 import db from '../../models/index.js';
 
 export const getAllPaymentsService = async () => {
   return await db.Payment.findAll({
     order: [['id', 'ASC']],
+    include: [
+      {
+        model: db.Tenant,
+        as: 'tenant', // Must match the 'as' in the association
+        attributes: ['firstname', 'lastname', 'phone'] // Only fetch what you need
+      },
+      {
+        model: db.Property,
+        as: 'property',
+        attributes: ['propertyname'] 
+        // Note: To get 'owner', you might need to include Landlord here too
+      }
+    ]
   });
 };
 

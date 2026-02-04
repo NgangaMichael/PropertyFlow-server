@@ -4,19 +4,24 @@ import bcrypt from 'bcryptjs';
 import User from '../../models/usersmodel/user.js';
 
 export const login = async (req, res) => {
-  const { username, password } = req.body;
-  console.log("Login attempt for user:", req.body);
+  const { email, password } = req.body; // ⬅️ Destructure email
+  console.log("Login attempt for email:", email);
 
   try {
-    const user = await User.findOne({ where: { username } });
+    // ⬅️ Change where: { username } to where: { email }
+    const user = await User.findOne({ where: { email } });
 
-    if (!user) return res.status(401).json({ message: "Invalid username or password" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: "Invalid username or password" });
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
 
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, email: user.email }, // ⬅️ Use email in payload
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
@@ -24,18 +29,18 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "Lax",
-      secure: false,
+      secure: process.env.NODE_ENV === 'production', // Better practice
       maxAge: 3600000,
     });
 
-    // ⬅️ Send permissions as JSON
     res.status(200).json({
       success: true,
       message: "Login successful",
       user: {
         username: user.username,
+        email: user.email, // ⬅️ Include email in response
         designation: user.designation,
-        permissions: user.permissions, // your stored permissions JSON column
+        permissions: user.permissions,
       },
     });
   } catch (error) {

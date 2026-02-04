@@ -41,6 +41,10 @@ export default class Propertie extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        housenumber: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         description: {
           type: DataTypes.STRING,
           allowNull: false,

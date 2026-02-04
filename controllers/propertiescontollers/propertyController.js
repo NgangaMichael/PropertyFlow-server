@@ -6,10 +6,24 @@ export const getAllProperties = async (req, res) => {
 };
 
 export const createProperty = async (req, res) => {
-  const { propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, location, description, status } = req.body;
-console.log(req.body);
+  // Add landlordid to the destructuring list below
+  const { 
+    landlordid, 
+    propertyname, 
+    propertytype, 
+    rentamount, 
+    depositamount, 
+    bedrooms, 
+    bathrooms, 
+    location, 
+    description, 
+    housenumber,
+    status 
+  } = req.body;
+
   try {
     const property = await propertyService.createPropertyService({
+      landlordid, // Pass it to the service
       propertyname, 
       propertytype, 
       rentamount, 
@@ -18,6 +32,7 @@ console.log(req.body);
       bathrooms, 
       location, 
       description,
+      housenumber,
       status
     });
 
@@ -29,7 +44,7 @@ console.log(req.body);
 
 export const updateProperty = async (req, res) => {
   const { id } = req.params;
-  const { propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, location, description, status } = req.body;
+  const { propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, housenumber, location, description, status } = req.body;
 
   try {
     const updatedProperty = await propertyService.updatePropertyService(id, {
@@ -39,6 +54,7 @@ export const updateProperty = async (req, res) => {
       depositamount, 
       bedrooms, 
       bathrooms, 
+      housenumber,
       location, 
       description, 
       status

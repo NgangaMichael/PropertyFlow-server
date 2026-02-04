@@ -6,18 +6,41 @@ export const getAllPropertiesService = async () => {
   });
 };
 
-export const createPropertyService = async ({ propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, location, description, status }) => {
+export const createPropertyService = async ({ 
+  landlordid, // Accept landlordid here
+  propertyname, 
+  propertytype, 
+  rentamount, 
+  depositamount, 
+  bedrooms, 
+  bathrooms, 
+  location, 
+  description,
+  housenumber, 
+  status 
+}) => {
   const existing = await db.Property.findOne({
-    where: {
-      propertyname,
-    },
+    where: { propertyname },
   });
 
   if (existing) {
     throw new Error('Property already exists');
   }
 
-  return await db.Property.create({ propertyname, propertytype, rentamount, depositamount, bedrooms, bathrooms, location, description, status });
+  // Include landlordid in the database creation
+  return await db.Property.create({ 
+    landlordid, 
+    propertyname, 
+    propertytype, 
+    rentamount, 
+    depositamount, 
+    bedrooms, 
+    bathrooms, 
+    location, 
+    description, 
+    housenumber,
+    status 
+  });
 };
 
 export const updatePropertyService = async (id, data) => {
