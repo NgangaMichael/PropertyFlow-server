@@ -36,6 +36,18 @@ export default class Landlord extends Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        agreement_start: {
+          type: DataTypes.DATEONLY,
+          allowNull: false,
+        },
+        agreement_end: {
+          type: DataTypes.DATEONLY,
+          allowNull: false,
+        },
+        commision: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         bankname: {
           type: DataTypes.STRING,
           allowNull: false,

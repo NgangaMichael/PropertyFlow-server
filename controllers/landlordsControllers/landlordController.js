@@ -6,7 +6,7 @@ export const getAllLandlords = async (req, res) => {
 };
 
 export const createLandlord = async (req, res) => {
-  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status } = req.body;
+  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status, agreement_start, agreement_end, commision } = req.body;
 
   try {
     const landlord = await landlordService.createLandlordService({
@@ -16,7 +16,10 @@ export const createLandlord = async (req, res) => {
       phone, 
       idnumber, 
       address, 
-      bankname, 
+      bankname,
+      agreement_start,
+      agreement_end,
+      commision,
       bankaccountnumber, 
       status
     });
@@ -29,7 +32,7 @@ export const createLandlord = async (req, res) => {
 
 export const updateLandlord = async (req, res) => {
   const { id } = req.params;
-  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status } = req.body;
+  const { firstname, lastname, email, phone, idnumber, address, bankname, bankaccountnumber, status, agreement_start, agreement_end, commision } = req.body;
 
   try {
     const updatedLandlord = await landlordService.updateLandlordService(id, {
@@ -40,6 +43,9 @@ export const updateLandlord = async (req, res) => {
       idnumber, 
       address, 
       bankname, 
+      agreement_start,
+      agreement_end,
+      commision,
       bankaccountnumber, 
       status
     });
