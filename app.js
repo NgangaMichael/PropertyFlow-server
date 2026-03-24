@@ -3,6 +3,7 @@ import routes from './routes/index.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import './utils/cronJobs.js';
 
 dotenv.config();
 

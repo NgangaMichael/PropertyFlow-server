@@ -169,3 +169,51 @@ export const generatePaymentReceiptPDF = (payment, tenant, property) => {
     doc.end();
   });
 };
+
+export const generateInvoicePDF = (tenant, property) => {
+  return new Promise((resolve) => {
+    const doc = new PDFDocument({ size: 'A4', margin: 50 });
+    let buffers = [];
+    doc.on('data', buffers.push.bind(buffers));
+    doc.on('end', () => resolve(Buffer.concat(buffers)));
+
+    // Branding
+    doc.fillColor('#4f46e5').fontSize(20).text('GRANDNUM PROPERTIES', { align: 'right' });
+    doc.fillColor('#444').fontSize(10).text('Monthly Rental Invoice', { align: 'right' });
+    doc.moveDown();
+
+    // Tenant Details
+    doc.fontSize(12).fillColor('#111').text('BILL TO:', { underline: true });
+    doc.text(`${tenant.firstname} ${tenant.lastname}`);
+    doc.text(`Unit: ${property.propertyname} (${property.housenumber})`);
+    doc.moveDown();
+
+    // Billing Table
+    const tableTop = 200;
+    doc.fontSize(10).text('Description', 50, tableTop);
+    doc.text('Amount (KSH)', 400, tableTop);
+    doc.moveTo(50, tableTop + 15).lineTo(550, tableTop + 15).stroke();
+
+    let y = tableTop + 30;
+    
+    // Rent Row
+    doc.text('Monthly Rent', 50, y);
+    doc.text(property.rentamount.toLocaleString(), 400, y);
+    
+    // --- PLACEHOLDERS FOR FUTURE FIELDS ---
+    y += 20; doc.text('Arrears:', 50, y); doc.text('---', 400, y);
+    y += 20; doc.text('Water Bill / Units:', 50, y); doc.text('---', 400, y);
+    y += 20; doc.text('Service Charge / Garbage:', 50, y); doc.text('---', 400, y);
+    // ---------------------------------------
+
+    doc.moveTo(50, y + 20).lineTo(550, y + 20).stroke();
+    doc.fontSize(14).text(`TOTAL DUE: KSH ${property.rentamount.toLocaleString()}`, 350, y + 35);
+
+    // Footer Account Details
+    doc.fontSize(10).fillColor('#666').text('PAYMENT INSTRUCTIONS:', 50, 700);
+    doc.text('Please pay to: [Insert Account/Paybill Here]', 50, 715);
+    doc.text('Rent is due by the 5th of every month.', 50, 730);
+
+    doc.end();
+  });
+};
